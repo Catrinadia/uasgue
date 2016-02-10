@@ -89,3 +89,13 @@ if(isset($_POST['button111']))
 		_direct("?y=".session_id()."&page="._encodeParam("reservasi"));
 }
 ?>
+
+//cancling_
+<?php
+	echo "<font size='6'>Your reservation heve been cancling<br> Thankyou</font>"
+?>
+
+///checkbanner
+<div class="twelve columns alpha"><h2>Visit <?php echo _getconfigdb("company_address"); ?> <strong> or Call <?php echo _getconfigdb("company_number"); ?></strong></h2></div>
+	<div class="four columns omega"><a href="?page=<?php echo "reservasi"; ?>" class="button_yellow">Reservasi Sekarang</a></div>
+
