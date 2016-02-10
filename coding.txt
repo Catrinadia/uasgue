@@ -45,3 +45,47 @@ if(isset($_GET['news']))
 	<!-- end right column-->
    
 </div><!-- end container -->
+
+//cancling
+
+<form action="" method="post">
+<h1> Form Cancling </h1><br>
+<h3> please entre your bocking Code </h3>
+<form>
+<label>bocking id</label>
+<input type="text" name="id">
+
+<input type="submit" name="button222" value="submit"/>
+<input type="submit" name="button111" value="Batal"/>
+</form>
+<?php
+
+?>
+
+<?php
+if(isset($_POST['button222']))
+{
+	
+	$ids=$_POST['id'];
+	$q=mysql_query("Delete from `reservations` Where idreservation='".$ids."'");
+	if($q)
+	{
+		unset($_SESSION['interval']);
+		unset($_SESSION['tgl1']);
+		unset($_SESSION['tgl2']);
+		unset($_SESSION['rm']);
+		unset($_SESSION['ada']);
+		_direct("?y=".session_id()."&page="._encodeParam("cancling_"));
+	}
+}
+
+if(isset($_POST['button111']))
+{
+		unset($_SESSION['interval']);
+		unset($_SESSION['tgl1']);
+		unset($_SESSION['tgl2']);
+		unset($_SESSION['rm']);
+		unset($_SESSION['ada']);
+		_direct("?y=".session_id()."&page="._encodeParam("reservasi"));
+}
+?>
