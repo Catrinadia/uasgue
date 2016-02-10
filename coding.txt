@@ -95,7 +95,82 @@ if(isset($_POST['button111']))
 	echo "<font size='6'>Your reservation heve been cancling<br> Thankyou</font>"
 ?>
 
-///checkbanner
+//checkbanner
 <div class="twelve columns alpha"><h2>Visit <?php echo _getconfigdb("company_address"); ?> <strong> or Call <?php echo _getconfigdb("company_number"); ?></strong></h2></div>
 	<div class="four columns omega"><a href="?page=<?php echo "reservasi"; ?>" class="button_yellow">Reservasi Sekarang</a></div>
+
+
+//classroom
+<?php
+$q=mysql_query("Select * from class LIMIT 0,3");
+while($r=mysql_fetch_array($q))
+{
+	$photo=$base_url."uploads/images/".$r['photoclass'];
+	$id=$r['idclass'];
+	
+
+?>
+<div class="four columns add-bottom">
+	<div class="picture">
+		<a href="<?php echo $photo; ?>" data-rel="prettyPhoto" title=""><span class="magnify"></span><img src="<?php echo $photo; ?>" alt="picture" class="scale-with-grid"></a><em></em>
+	</div>
+	<h3><?php echo $r['title']; ?> <strong><?php echo _getconfigdb("currency").$r['price']; ?></strong></h3>
+	
+	<ul class="room_facilities">
+    <?php
+		$q2=mysql_query("Select * from facilities where idclass='".$id."' and status='1'");
+		while($r2=mysql_fetch_array($q2))
+		{
+	?>
+		<li class="<?php echo $r2['fac']; ?>"><a class="tooltip_1" href="#" title="<?php echo $r2['title']; ?>"><?php echo $r2['title']; ?></a></li>
+		
+        <?php
+		
+		}
+		?>
+	</ul>
+	<br class="clear add-bottom"/>
+	<a href="<?php echo $base_url."?room="._encodeParam($id); ?>" class="button">Read more</a>
+</div>
+<?php
+}
+?>
+
+//contact
+<?php
+$q=mysql_query("Select * from page where id_page='2'");
+$r=mysql_fetch_array($q);
+?>
+<h2><?php echo $r['title']; ?></h2>
+<p><?php echo $r['post_entry']; ?></p>
+
+//contentfunc
+<?php
+
+//GET PAGE
+
+function _pagecontent($id,$field)
+{
+	$q=mysql_query("Select * from page where page_id='".$id."'");
+	$r=mysql_fetch_array($q);
+	return $r[$field];
+}
+
+//GET NEWS CONTENT
+function _newscontent($id,$field)
+{
+	$q=mysql_query("Select * from post_article where post_id='".$id."'");
+	$r=mysql_fetch_array($q);
+	return $r[$field];
+}
+
+//GET ROOM CONTENT
+function _roomcontent($id,$field)
+{
+	$q=mysql_query("Select * from class where idclass='".$id."'");
+	$r=mysql_fetch_array($q);
+	return $r[$field];
+}
+
+?>
 
